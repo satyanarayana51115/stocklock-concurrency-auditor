@@ -1,0 +1,7 @@
+playwright
+pytest
+pytest-asyncio
+fastapi
+uvicorn
+requests
+pytest-html
