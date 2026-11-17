@@ -23,20 +23,23 @@ def render_store_html(db: dict, api_endpoint: str, mode_label: str) -> str:
     <head>
         <title>StockLock Flash Sale - {mode_label}</title>
         <style>
-            body {{ font-family: Arial, sans-serif; margin: 50px; background: #f4f4f9; }}
-            .card {{ background: white; padding: 30px; border-radius: 10px; max-width: 420px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }}
-            .badge {{ display: inline-block; padding: 4px 8px; font-size: 12px; border-radius: 4px; background: #e2e8f0; margin-bottom: 10px; }}
-            button {{ background: #28a745; color: white; border: none; padding: 12px 20px; font-size: 16px; cursor: pointer; border-radius: 5px; }}
-            button:disabled {{ background: #ccc; }}
-            #status {{ margin-top: 20px; font-weight: bold; font-size: 18px; }}
+            body {{ font-family: Arial, sans-serif; margin: 12px 20px; background: #f4f4f9; }}
+            .card {{ background: white; padding: 20px 26px; border-radius: 12px; max-width: 520px; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }}
+            .badge {{ display: inline-block; padding: 6px 12px; font-size: 15px; font-weight: bold; border-radius: 6px; background: #e2e8f0; color: #1e293b; margin-bottom: 10px; }}
+            h2 {{ font-size: 26px; margin: 8px 0 14px 0; color: #0f172a; }}
+            .info-text {{ font-size: 21px; font-weight: 600; margin: 10px 0; color: #334155; }}
+            #stock-count {{ font-size: 24px; font-weight: bold; color: #0284c7; }}
+            button {{ background: #16a34a; color: white; border: none; padding: 14px 28px; font-size: 20px; font-weight: bold; cursor: pointer; border-radius: 8px; margin-top: 8px; }}
+            button:disabled {{ background: #94a3b8; }}
+            #status {{ margin-top: 16px; font-weight: bold; font-size: 22px; }}
         </style>
     </head>
     <body>
         <div class="card">
             <span class="badge">{mode_label}</span>
             <h2 id="product-name">{db['product_name']}</h2>
-            <p>Price: ₹{db['price']}</p>
-            <p>Available Stock: <span id="stock-count">{db['stock']}</span></p>
+            <p class="info-text">Price: ₹{db['price']}</p>
+            <p class="info-text">Available Stock: <span id="stock-count">{db['stock']}</span></p>
             <button id="buy-btn" onclick="placeOrder()">Buy Now</button>
             <div id="status"></div>
         </div>
@@ -47,6 +50,7 @@ def render_store_html(db: dict, api_endpoint: str, mode_label: str) -> str:
                 const statusDiv = document.getElementById('status');
                 btn.disabled = true;
                 statusDiv.innerText = "Processing payment...";
+                statusDiv.style.color = "#475569";
 
                 const res = await fetch('{api_endpoint}', {{
                     method: 'POST',
@@ -55,7 +59,7 @@ def render_store_html(db: dict, api_endpoint: str, mode_label: str) -> str:
                 }});
                 const data = await res.json();
                 statusDiv.innerText = data.message;
-                statusDiv.style.color = data.success ? "green" : "red";
+                statusDiv.style.color = data.success ? "#15803d" : "#dc2626";
                 document.getElementById('stock-count').innerText = data.remaining_stock;
             }}
         </script>

@@ -54,3 +54,13 @@ pytest -s -v --html=reports/audit_report.html --self-contained-html
 
 ---
 
+## 📸 Live Audit Execution Proof
+
+### 1. Unlocked Endpoint — Race Condition Overselling Detected (`FAILED`)
+![Race Condition Detected](assets/race_condition_detected.png)
+
+### 2. Mutex-Locked Endpoint — Concurrency Enforced (`PASSED`)
+![Mutex Lock Passed](assets/mutex_lock_passed.png)
+
+### 3. Final Pytest Audit Summary
+![Pytest Summary](assets/pytest_audit_summary.png)
